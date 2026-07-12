@@ -2,13 +2,13 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+const OPENROUTER_API_KEY = process.env.AI_API_KEY || process.env.OPENROUTER_API_KEY;
 const MODEL = process.env.OPENROUTER_MODEL || 'openai/gpt-4o';
 
 export const generateAIResponse = async (history) => {
   try {
     if (!OPENROUTER_API_KEY) {
-      throw new Error('OPENROUTER_API_KEY is not defined in the environment variables.');
+      throw new Error('AI_API_KEY (or OPENROUTER_API_KEY) is not defined in the environment variables.');
     }
 
     // Format message history for OpenRouter (OpenAI chat completion standard format):
@@ -23,7 +23,7 @@ export const generateAIResponse = async (history) => {
       headers: {
         'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
         'HTTP-Referer': 'http://localhost:5173',
-        'X-Title': 'K-Hub AI Chatbot',
+        'X-Title': 'PromptPilot',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({

@@ -1,5 +1,23 @@
 import React from 'react';
-import { Compass, Sparkles, ArrowRight, Code, BookOpen, PenTool, Lightbulb, Check } from 'lucide-react';
+import { 
+  Compass, 
+  Sparkles, 
+  ArrowRight, 
+  Code, 
+  BookOpen, 
+  PenTool, 
+  Lightbulb, 
+  Check, 
+  History, 
+  Brain, 
+  FileText, 
+  Terminal, 
+  Smartphone, 
+  Zap, 
+  Lock, 
+  Layout,
+  Info
+} from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const GithubIcon = (props) => (
@@ -52,6 +70,18 @@ const LandingPage = ({ onStartChat, onOpenAuth }) => {
     { title: 'Build Portfolio', desc: 'Design clean responsive frontend layouts.', icon: PenTool }
   ];
 
+  const features = [
+    { title: 'Smart AI Conversations', desc: 'Engage in natural, logical dialogue and contextually aware chats.', icon: Sparkles },
+    { title: 'Chat History', desc: 'Access your persistent chat history records at any time.', icon: History },
+    { title: 'Context Awareness', desc: 'Intelligently links conversational message sequences.', icon: Brain },
+    { title: 'Markdown Support', desc: 'Renders beautifully formatted text, lists, and quotes.', icon: FileText },
+    { title: 'Code Highlighting', desc: 'Presents syntax code segments inside isolated copy blocks.', icon: Terminal },
+    { title: 'Responsive Design', desc: 'Runs perfectly across desktop, mobile, and tablet viewports.', icon: Smartphone },
+    { title: 'Fast Performance', desc: 'Lightweight components built to execute responses instantly.', icon: Zap },
+    { title: 'Secure Authentication', desc: 'Encrypted JSON web token profiles safeguard records.', icon: Lock },
+    { title: 'Beautiful User Experience', desc: 'Minimalist layout optimized for reading and writing.', icon: Layout }
+  ];
+
   function DatabaseIcon(props) {
     return (
       <svg
@@ -77,6 +107,10 @@ const LandingPage = ({ onStartChat, onOpenAuth }) => {
     document.getElementById('explore-prompts')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handleScrollToFeatures = () => {
+    document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-white text-slate-800 relative font-sans">
       
@@ -86,7 +120,7 @@ const LandingPage = ({ onStartChat, onOpenAuth }) => {
           
           {/* Logo */}
           <div className="flex items-center gap-2 select-none">
-            <LogoIcon className="h-7.5 w-7.5" />
+            <img src="/favicon.svg" className="h-7.5 w-7.5 select-none" alt="Logo" />
             <span className="font-extrabold text-slate-900 text-sm tracking-tight">
               PromptPilot
             </span>
@@ -142,7 +176,7 @@ const LandingPage = ({ onStartChat, onOpenAuth }) => {
         </h1>
 
         {/* Subtitles list */}
-        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 max-w-lg mb-8 mt-2 text-xs font-bold text-slate-50">
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 max-w-lg mb-6 mt-2 text-xs font-bold text-slate-50">
           <div className="flex items-center gap-1">
             <Check className="h-3.5 w-3.5 text-[#2563EB]" />
             <span className="text-slate-500">Code faster.</span>
@@ -161,6 +195,11 @@ const LandingPage = ({ onStartChat, onOpenAuth }) => {
           </div>
         </div>
 
+        {/* Hero Description */}
+        <p className="text-slate-500 text-xs md:text-sm max-w-xl mb-8 leading-relaxed font-medium">
+          PromptPilot is an intelligent AI assistant designed to help you write, code, learn, brainstorm, debug, and solve problems faster. It provides natural conversations, remembers your chat history, and delivers accurate AI-powered responses in a clean, modern workspace.
+        </p>
+
         {/* CTA triggers */}
         <div className="flex items-center gap-3">
           <motion.button
@@ -174,7 +213,7 @@ const LandingPage = ({ onStartChat, onOpenAuth }) => {
           </motion.button>
 
           <motion.button
-            onClick={handleScrollToPrompts}
+            onClick={handleScrollToFeatures}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             className="px-6 py-3 rounded-full bg-white hover:bg-slate-50 text-[#2563EB] border border-[#2563EB] font-bold text-xs transition-all cursor-pointer"
@@ -184,12 +223,45 @@ const LandingPage = ({ onStartChat, onOpenAuth }) => {
         </div>
       </div>
 
+      {/* Features Section */}
+      <div id="features" className="max-w-4xl mx-auto px-6 py-16 border-t border-slate-100">
+        <div className="text-center mb-10">
+          <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 tracking-tight">
+            Features
+          </h2>
+          <p className="text-xs text-slate-400 mt-1 font-semibold uppercase tracking-wider">
+            Explore PromptPilot's core capabilities
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+          {features.map((feat, idx) => {
+            const Icon = feat.icon;
+            return (
+              <div 
+                key={idx}
+                className="flex flex-col p-5.5 rounded-2xl border border-slate-200 bg-white shadow-sm"
+              >
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-50 border border-slate-100 text-[#2563EB] mb-3">
+                  <Icon className="h-4.5 w-4.5" />
+                </div>
+                <h4 className="text-xs font-bold text-slate-900 mb-1.5">{feat.title}</h4>
+                <p className="text-[11px] text-slate-500 leading-normal">{feat.desc}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Suggestion Prompts Section */}
-      <div id="explore-prompts" className="max-w-4xl mx-auto px-6 py-12 border-t border-slate-100">
-        <div className="text-center mb-8">
+      <div id="explore-prompts" className="max-w-4xl mx-auto px-6 py-16 border-t border-slate-100">
+        <div className="text-center mb-10">
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 tracking-tight">
             Suggestions
           </h2>
+          <p className="text-xs text-slate-400 mt-1 font-semibold uppercase tracking-wider">
+            Begin your chat session with quick prompt cards
+          </p>
         </div>
 
         {/* Shrunk suggestions grid */}
@@ -216,6 +288,21 @@ const LandingPage = ({ onStartChat, onOpenAuth }) => {
               </button>
             );
           })}
+        </div>
+      </div>
+
+      {/* About Section */}
+      <div id="about" className="max-w-4xl mx-auto px-6 py-16 border-t border-slate-100">
+        <div className="text-center mb-6">
+          <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 tracking-tight">
+            About PromptPilot
+          </h2>
+        </div>
+        <div className="max-w-2xl mx-auto text-slate-500 text-xs md:text-sm leading-relaxed text-center font-medium bg-slate-50/50 border border-slate-200/50 rounded-2xl p-6.5">
+          <Info className="h-5 w-5 text-[#2563EB] mx-auto mb-3" />
+          <p>
+            PromptPilot is a modern AI-powered conversational platform built to enhance productivity and learning. Whether you're a developer, student, professional, or creator, PromptPilot helps you generate ideas, write content, debug code, learn new technologies, and organize your thoughts through intelligent conversations.
+          </p>
         </div>
       </div>
 

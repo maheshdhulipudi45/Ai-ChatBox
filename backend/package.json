@@ -1,7 +1,7 @@
 {
   "name": "khub-chatbot-backend",
   "version": "1.0.0",
-  "description": "Backend server for K-Hub AI Chatbot",
+  "description": "Backend server for PromptPilot AI Workspace",
   "main": "server.js",
   "type": "module",
   "scripts": {

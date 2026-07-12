@@ -4,7 +4,7 @@ import { generateAIResponse } from './services/geminiService.js';
 
 dotenv.config();
 
-console.log('--- starting K-Hub Backend Connections Test ---');
+console.log('--- starting PromptPilot Backend Connections Test ---');
 console.log('MongoDB URI present:', !!process.env.MONGODB_URI);
 console.log('OpenRouter API Key present:', !!process.env.OPENROUTER_API_KEY);
 

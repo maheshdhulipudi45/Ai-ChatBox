@@ -29,7 +29,7 @@ app.use('/api/chat', chatRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'ok', message: 'K-Hub Chatbot Server is running smoothly' });
+  res.status(200).json({ status: 'ok', message: 'PromptPilot AI Workspace Server is running smoothly' });
 });
 
 // Error handling middleware
