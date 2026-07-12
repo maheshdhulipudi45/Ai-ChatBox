@@ -10,9 +10,6 @@ import errorHandler from './middleware/errorHandler.js';
 // Load environment variables
 dotenv.config();
 
-// Connect to MongoDB Atlas
-connectDB();
-
 const app = express();
 
 // Middleware
@@ -22,21 +19,45 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Routes
+// API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/conversations', conversationRoutes);
 app.use('/api/chat', chatRoutes);
 
-// Health check endpoint
+// GET / Health check
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Backend is running successfully 🚀"
+  });
+});
+
+// GET /health legacy support
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok', message: 'PromptPilot AI Workspace Server is running smoothly' });
+});
+
+// Undefined API Routes 404 handler
+app.use('*', (req, res) => {
+  res.status(404).json({
+    success: false,
+    message: `API Route not found: ${req.originalUrl}`
+  });
 });
 
 // Error handling middleware
 app.use(errorHandler);
 
+// Connect to MongoDB and start listening
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
-});
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error('Failed to initialize database connection. Server failed to start:', err);
+    process.exit(1);
+  });
